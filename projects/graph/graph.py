@@ -92,7 +92,10 @@ class Graph:
 
         This should be done using recursion.
         """
-        pass  # TODO
+        pass
+        # visited = set()
+
+        # def recursive_handler(visited):
 
     def bfs(self, starting_vertex, destination_vertex):
         """
@@ -100,7 +103,24 @@ class Graph:
         starting_vertex to destination_vertex in
         breath-first order.
         """
-        pass  # TODO
+        q = Queue()
+        visited = set()
+        q.enqueue([starting_vertex])
+
+        while q.size() > 0:
+            # v stands for vertex
+            path = q.dequeue()
+            # if the last v in the path is the destination_vertex return the path
+            if path[-1] == destination_vertex:
+                return path
+            for neighbor in self.get_neighbors(path[-1]):
+                if neighbor not in visited:
+                    # clone the path
+                    new_path = path[:]
+                    # append the new neighbor to the end
+                    new_path.append(neighbor)
+                    # add the new_path to the queue
+                    q.enqueue(new_path)
 
     def dfs(self, starting_vertex, destination_vertex):
         """
@@ -118,7 +138,8 @@ class Graph:
 
         This should be done using recursion.
         """
-        pass  # TODO
+        # def recursive_handler():
+        pass
 
 
 if __name__ == '__main__':
@@ -182,6 +203,7 @@ if __name__ == '__main__':
     Valid BFS path:
         [1, 2, 4, 6]
     '''
+    print("bfs")
     print(graph.bfs(1, 6))
 
     '''
@@ -189,5 +211,7 @@ if __name__ == '__main__':
         [1, 2, 4, 6]
         [1, 2, 4, 7, 6]
     '''
+    print("dfs")
     print(graph.dfs(1, 6))
+    print("dfs_recursive")
     print(graph.dfs_recursive(1, 6))
