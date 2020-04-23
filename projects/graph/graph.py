@@ -92,10 +92,21 @@ class Graph:
 
         This should be done using recursion.
         """
-        pass
-        # visited = set()
+        s = Stack()
+        visited = set()
+        s.push(starting_vertex)
 
-        # def recursive_handler(visited):
+        def recursive_handler(stack, visited):
+            v = stack.pop()
+            if v not in visited:
+                visited.add(v)
+                print(v)
+                for neighbor in self.get_neighbors(v):
+                    s.push(neighbor)
+                recursive_handler(stack, visited)
+            return
+
+        recursive_handler(s, visited)
 
     def bfs(self, starting_vertex, destination_vertex):
         """
@@ -151,8 +162,24 @@ class Graph:
 
         This should be done using recursion.
         """
-        # def recursive_handler():
-        pass
+        s = Stack()
+        s.push([starting_vertex])
+        visited = set()
+
+        def recursive_handler(stack, visited):
+            path = s.pop()
+            if path[-1] == destination_vertex:
+                return path
+            if path[-1] not in visited:
+                visited.add(path[-1])
+                for neighbor in self.get_neighbors(path[-1]):
+                    if neighbor not in visited:
+                        path_clone = path[:]
+                        path_clone.append(neighbor)
+                        s.push(path_clone)
+            return recursive_handler(s, visited)
+
+        return recursive_handler(s, visited)
 
 
 if __name__ == '__main__':
