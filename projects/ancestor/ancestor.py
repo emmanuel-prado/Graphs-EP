@@ -1,23 +1,33 @@
+# pylint: disable=no-member
+
 # https://docs.python.org/3/library/typing.html
-from typing import List, Dict, Tuple
+# Integer Types -  int, float, complex
+# Sequence Types - list, tuple, range, strings
+# Set Types - set, frozenset
+# Mapping Types - dict (a mapping object maps hashable values to arbitrary objects)
+from typing import List, Dict, Tuple, Set
 
 AncestryList = List[Tuple(int, int)]
+VisitedSet = Set[int]
+Stack = List[int]
 
 
 class Graph:
     def __init__(self):
-        self.vertices = Dict[int, int]
+        self.vertices = Dict[int, set]
 
-    def build_tree(self, dataset: AncestryList) -> Dict:
-        pass
+    def build_graph(self, dataset: AncestryList) -> str:
+        visited = VisitedSet
+        for x in dataset:
+            if x[0] and x[1] not in visited:
+                visited.add(x[0])
+                visited.add(x[1])
+                self.vertices[x[0]].add(x[1])
+                self.vertices[x[1]].add(x[0])
 
-    def add_vertex(self, v: int) -> str:
-        pass
+        return f"successfully compiled graph"
 
-    def add_edge(self, v1: int, v2: int) -> str:
-        pass
-
-    def get_edge(self, vertex: int) -> int:
+    def get_edges(self, dict_key: int) -> int:
         pass
 
 
