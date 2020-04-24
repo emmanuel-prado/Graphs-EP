@@ -28,8 +28,36 @@ class Graph:
         return f"successfully compiled graph"
 
     def get_edges(self, dict_key: int) -> int:
-        pass
+        return self.vertices[dict_key]
 
 
 def earliest_ancestor(ancestors: AncestryList, starting_node: int):
-    pass
+    graph = Graph()
+    graph.build_graph(ancestors)
+
+    s = Stack
+    visited = VisitedSet
+    # keep track of level, start at 0
+    level = 0
+    tree = List[tuple]
+
+    s.push((starting_node, level))
+    while len(s) > 0:
+        v = s.pop()
+
+        if v[0] not in visited:
+            level += 1
+            visited.add(v[0])
+            tree.append((v[0], level))
+
+            for edge in graph.vertices[v[0]]:
+                if edge not in visited:
+                    s.push((edge, level))
+
+    if tree[-1][1] == tree[-2][1]:
+        if tree[-1][1] > tree[-2][1]:
+            return tree[-2][0]
+        else:
+            return tree[-1][0]
+
+    return tree[-1][0]
