@@ -77,7 +77,22 @@ class SocialGraph:
         The key is the friend's ID and the value is the path.
         """
         visited = {}  # Note that this is a dictionary, not a set
+        visited_set = set()
         # !!!! IMPLEMENT ME
+        q = []
+        q.append([user_id])
+
+        while len(q) > 0:
+            path = q.pop()
+            v = path[-1]
+            if v not in visited_set:
+                visited_set.add(v)
+                visited[v] = path
+                for e in self.friendships[v]:
+                    new_path = path[:]
+                    new_path.append(e)
+                    q.append(new_path)
+
         return visited
 
 
